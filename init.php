@@ -22,7 +22,7 @@ define('APP_DIR', '../app');
 try {
     require_once(APP_DIR .'/core/includes.php');
 } catch (Exception $e) {
-    echo '<div style="padding: 12px; background-color: #e6db40; color: white; text-align: center">'. $e->getMessage() .'</div>';
+    echo '<div style="padding: 12px; background-color: #e65940; color: white; font-weight: 700; text-align: center">'. $e->getMessage() .'</div>';
 }
 
 /**

@@ -1,0 +1,16 @@
+Object
+=============================
+
+ID | parent | owner | type | alias | date | modified | status
+
+
+
+Field
+=============================
+ID | object | parent | type | alias | label | value | date | modified | status
+
+
+
+Field Meta
+=============================
+ID | field | alias | value
