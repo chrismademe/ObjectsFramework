@@ -85,19 +85,32 @@ class Objects {
      */
     public function get( array $args = null ) {
 
+        // Defaults
+        $order['ORDER'] = 'date DESC';
+
         // Set input arguments
         if ( !is_null($args) ) {
             foreach ( $args as $arg => $value ) {
-                if ( $this->isValidProperty($arg) ) {
-                    $options[$arg] = $value;
+                switch (true) {
+
+                    // Where Properties
+                    case $this->isValidProperty($arg):
+                        $options[$arg] = $value;
+                    break;
+
+                    // Order
+                    case $arg === 'order':
+                        $order['ORDER'] = $value;
+                    break;
+
                 }
             }
         }
 
         // Build Where Statement
-        switch(true) {
+        switch (true) {
 
-            // No Arguments
+            // No arguments
             case !isset($options):
                 $where = false;
             break;
@@ -115,6 +128,9 @@ class Objects {
             break;
 
         }
+
+        // Merge Order & Where
+        $where = array_merge($where, $order);
 
         // Query
         $query = $this->db->select(
@@ -201,19 +217,30 @@ class Objects {
     }
 
     /**
+     * Publish
+     *
+     * Set status to 1
+     */
+    public function publish( $ID ) {
+        return $this->update( $ID, array('status' => 1) );
+    }
+
+    /**
+     * Unpublish
+     *
+     * Set status to 0
+     */
+    public function unpublish( $ID ) {
+        return $this->update( $ID, array('status' => 0) );
+    }
+
+    /**
      * Delete
      *
      * Delete existing object
      */
     public function delete( $ID ) {
-
-        // Check object exists
-        if ( !$this->exists($ID) ) {
-            throw new Exception('Object does not exist');
-        }
-
         return $this->update( $ID, array('status' => -1) );
-
     }
 
     /**

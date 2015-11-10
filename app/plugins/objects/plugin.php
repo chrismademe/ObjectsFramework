@@ -9,6 +9,8 @@
  * content for PHPSF apps.
  */
 
+use Objects\Objects;
+
 /**
  * Dependencies
  */
@@ -18,3 +20,9 @@ require_once __DIR__ .'/lib/dependencies.php';
  * Classes
  */
 require_once __DIR__ .'/lib/classes.php';
+
+/**
+ * Create a new instance of
+ * Objects
+ */
+$objects = new Objects($medoo);

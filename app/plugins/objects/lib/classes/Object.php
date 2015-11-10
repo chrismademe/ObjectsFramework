@@ -2,22 +2,19 @@
 
 namespace Objects;
 
-use Exception;
-use medoo;
-
 class Object {
 
     /**
      * Object Properties
      */
-    public $ID;
-    public $parent;
-    public $owner;
-    public $type;
-    public $alias;
-    public $date;
-    public $modified;
-    public $status;
+    private $ID;
+    private $parent;
+    private $owner;
+    private $type;
+    private $alias;
+    private $date;
+    private $modified;
+    private $status;
 
     /**
      * Construct
@@ -43,7 +40,7 @@ class Object {
      * Set
      */
     public function __set( $property, $value ) {
-        return;
+        return false;
     }
 
     /**

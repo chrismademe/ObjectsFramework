@@ -1,5 +1,5 @@
 <?php
 
-use Objects\Objects;
+$posts = $objects->get( array('type' => 'post') );
 
-$objects = new Objects($medoo);
+print_r($posts);
