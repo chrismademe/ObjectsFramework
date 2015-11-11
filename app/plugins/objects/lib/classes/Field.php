@@ -2,16 +2,18 @@
 
 namespace Objects;
 
-class Object {
+class Field {
 
     /**
      * Object Properties
      */
     public $ID;
+    public $object;
     public $parent;
-    public $owner;
     public $type;
     public $alias;
+    public $label;
+    public $value;
     public $date;
     public $modified;
     public $status;
@@ -47,12 +49,13 @@ class Object {
     }
 
     /**
-     * Has fields
+     * Has Children
      *
-     * Checks to see whether this object
-     * has fields attached to it.
+     * Check to see whether
+     * this field has any
+     * child fields.
      */
-    public function hasFields() {
+    public function hasChildren() {
 
         /**
          * Run Custom Query
@@ -65,14 +68,20 @@ class Object {
          * necassary so this is
          * a direct query
          */
-        $query = Helpers::db()->query("SELECT EXISTS(SELECT * FROM ".Helpers::quote('objects')." INNER JOIN ".Helpers::quote('fields')." ON ".Helpers::quote('objects').".".Helpers::quote('ID')." = ".Helpers::quote('fields').".".Helpers::quote('object')." WHERE ". Helpers::quote('fields') .".".Helpers::quote('object')." = ". $this->ID ." AND ". Helpers::quote('objects') .".".Helpers::quote('ID')." = ".Helpers::quote('fields').".".Helpers::quote('object').")");
+        $query = Helpers::db()->has(
+            Helpers::table('fields'),
+            array( 'parent' => $this->ID )
+        );
 
-        /**
-         * Get result
-         */
-        $result = $query->fetchAll();
-        return $result[0][0];
+        return $query;
 
+    }
+
+    /**
+     * Is Hidden
+     */
+    public function isHidden() {
+        return $this->type === 'hidden';
     }
 
     /**
@@ -87,16 +96,6 @@ class Object {
      */
     public function isModified() {
         return !empty($this->modified);
-    }
-
-    /**
-     * Is Owner
-     *
-     * Checks to see whether specified
-     * user ID is the owner of this object
-     */
-    public function isOwner( $userID ) {
-        return $this->owner === $userID;
     }
 
 }

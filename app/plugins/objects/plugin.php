@@ -10,6 +10,7 @@
  */
 
 use Objects\Objects;
+use Objects\Fields;
 
 /**
  * Dependencies
@@ -23,6 +24,7 @@ require_once __DIR__ .'/lib/classes.php';
 
 /**
  * Create a new instance of
- * Objects
+ * Objects & Fields
  */
-$objects = new Objects($medoo);
+$objects    = new Objects($medoo);
+$fields     = new Fields($medoo);

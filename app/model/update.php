@@ -2,4 +2,8 @@
 
 $posts = $objects->get( array('type' => 'post') );
 
-print_r($posts);
+foreach ( $posts as $post ) {
+    if ( $post->hasFields() ) {
+        print_r( $fields->get( array('object' => $post->ID) ) );
+    }
+}

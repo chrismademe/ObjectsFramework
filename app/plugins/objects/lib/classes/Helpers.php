@@ -5,6 +5,28 @@ namespace Objects;
 class Helpers {
 
     /**
+     * Database Object
+     */
+    public static function db() {
+        global $medoo;
+        return $medoo;
+    }
+
+    /**
+     * Database Table Name
+     */
+    public static function table( $name ) {
+        return $name;
+    }
+
+    /**
+     * Database Quote
+     */
+    public static function quote( $string ) {
+        return '`'. $string .'`';
+    }
+
+    /**
      * Database Date
      *
      * Return MySQL timestamp

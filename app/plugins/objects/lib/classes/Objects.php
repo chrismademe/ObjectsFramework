@@ -1,10 +1,19 @@
 <?php
 
 namespace Objects;
+
 use Exception;
 use medoo;
 
 class Objects {
+
+    /**
+     * ID
+     *
+     * The ID of the last created
+     * object
+     */
+    public $ID;
 
     /**
      * Database object
@@ -181,6 +190,9 @@ class Objects {
             return false;
         }
 
+        // Store ID
+        $this->ID = $query;
+
         return true;
 
     }
@@ -195,6 +207,11 @@ class Objects {
         // Check object exists
         if ( !$this->exists($ID) ) {
             throw new Exception('Object does not exist');
+        }
+
+        // If $ID is a string, get the ID
+        if ( is_string($ID) && !is_numeric($ID) ) {
+            $ID = $this->getID($ID);
         }
 
         // Insert date modified
