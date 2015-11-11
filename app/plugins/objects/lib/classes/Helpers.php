@@ -46,4 +46,20 @@ class Helpers {
 
     }
 
+    /**
+     * Alias
+     */
+    public static function alias( $string ) {
+        return strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $string));
+    }
+
+    /**
+     * Dump
+     */
+    public static function dump( $array ) {
+        echo '<pre>';
+        print_r($array);
+        echo '</pre>';
+    }
+
 }

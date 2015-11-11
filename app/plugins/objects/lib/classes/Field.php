@@ -49,6 +49,17 @@ class Field {
     }
 
     /**
+     * Value
+     *
+     * Return property value
+     */
+    public function value() {
+        if ( !empty( $this->value ) ) {
+            return $this->value;
+        }
+    }
+
+    /**
      * Has Children
      *
      * Check to see whether

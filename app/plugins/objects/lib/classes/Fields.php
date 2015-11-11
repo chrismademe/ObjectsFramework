@@ -158,7 +158,7 @@ class Fields {
 
         // Create 'Object' objects
         foreach ( $query as $object ) {
-            $the_objects[] = new Field($object);
+            $the_objects[$object['alias']] = new Field($object);
         }
 
         return $the_objects;
