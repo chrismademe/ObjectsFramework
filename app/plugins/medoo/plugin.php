@@ -33,5 +33,11 @@ $medoo = new medoo([
     'port' => DB_PORT
 ]);
 
+// Create medoo() for global scope
+function medoo() {
+    global $medoo;
+    return $medoo;
+}
+
 // Run trigger
 $triggers->doTrigger('on_medoo_init');

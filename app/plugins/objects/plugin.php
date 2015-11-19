@@ -31,5 +31,5 @@ require_once __DIR__ .'/lib/functions.php';
  * Create a new instance of
  * Objects & Fields
  */
-$objects    = new Objects($medoo);
-$fields     = new Fields($medoo);
+$objects    = new Objects();
+$fields     = new Fields();

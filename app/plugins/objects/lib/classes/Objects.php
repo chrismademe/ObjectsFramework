@@ -46,10 +46,10 @@ class Objects {
     /**
      * Construct
      */
-    public function __construct(medoo $db, array $config = null) {
+    public function __construct( array $config = null ) {
 
         // Database
-        $this->db = $db;
+        $this->db = medoo();
 
         // Set default config
         $this->config = array(
