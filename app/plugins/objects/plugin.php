@@ -6,7 +6,7 @@
  *
  * A collection of classes and
  * functions to help build
- * content for PHPSF apps.
+ * content for Poco apps.
  */
 
 use Objects\Objects;
@@ -21,6 +21,11 @@ require_once __DIR__ .'/lib/dependencies.php';
  * Classes
  */
 require_once __DIR__ .'/lib/classes.php';
+
+/**
+ * Functions
+ */
+require_once __DIR__ .'/lib/functions.php';
 
 /**
  * Create a new instance of

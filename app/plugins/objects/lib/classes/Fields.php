@@ -142,7 +142,9 @@ class Fields {
         }
 
         // Merge Order & Where
-        $where = array_merge($where, $order);
+        if ( is_array($where) ) {
+            $where = array_merge($where, $order);
+        }
 
         // Query
         $query = $this->db->select(
@@ -158,7 +160,7 @@ class Fields {
 
         // Create 'Object' objects
         foreach ( $query as $object ) {
-            $the_objects[$object['alias']] = new Field($object);
+            $the_objects[] = new Field($object);
         }
 
         return $the_objects;
@@ -202,6 +204,11 @@ class Fields {
      */
     public function update( $ID, array $fields ) {
 
+        // Typecast ID
+        if ( !is_int($ID) && is_numeric($ID) ) {
+            $ID = (int) $ID;
+        }
+
         // Check object exists
         if ( !$this->exists($ID) ) {
             throw new Exception('Field does not exist');
@@ -235,6 +242,29 @@ class Fields {
         return $this->update( $ID, array('status' => -1) );
     }
 
+    /**
+     * Remove
+     *
+     * Actually deletes the field from
+     * the database.
+     *
+     * @NOTE: Use with caution, this cannot
+     * be undone!
+     */
+    public function remove( $ID ) {
+
+        // Check object exists
+        if ( !$this->exists($ID) ) {
+            throw new Exception('Object does not exist');
+        }
+
+        return $this->db->delete(
+            $this->config['table'],
+            array( 'ID' => $ID )
+        );
+
+    }
+
     #########################################
     ### Helpers                           ###
     #########################################
@@ -242,7 +272,7 @@ class Fields {
     /**
      * Exists
      *
-     * Check to see whether an object
+     * Check to see whether a field
      * exists
      */
     public function exists( $ID ) {
@@ -253,7 +283,7 @@ class Fields {
         }
 
         // Check for ID or alias
-        if ( is_int($ID) ) {
+        if ( is_int($ID) || is_numeric($ID) ) {
             $modifier = 'ID';
         } else {
             $modifier = 'alias';
@@ -312,7 +342,7 @@ class Fields {
     }
 
     /**
-     * Is Valid Field
+     * Is Valid Property
      *
      * Array of valid fields to
      * query in get/select functions

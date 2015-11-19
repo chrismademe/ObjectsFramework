@@ -8,6 +8,14 @@ use medoo;
 class Objects {
 
     /**
+     * Current Object
+     *
+     * For a single object, store
+     * the ID for reference.
+     */
+    public $current_object;
+
+    /**
      * ID
      *
      * The ID of the last created
@@ -139,7 +147,9 @@ class Objects {
         }
 
         // Merge Order & Where
-        $where = array_merge($where, $order);
+        if ( is_array($where) ) {
+            $where = array_merge($where, $order);
+        }
 
         // Query
         $query = $this->db->select(
@@ -158,7 +168,17 @@ class Objects {
             $the_objects[] = new Object($object);
         }
 
-        return $the_objects;
+        // Return Objects
+        if ( count($the_objects) > 1 ) {
+            return $the_objects;
+        }
+
+        // For single object, keep
+        // the ID
+        $this->current_object = $the_objects[0]->ID;
+
+        // Return Object
+        return $the_objects[0];
 
     }
 
@@ -203,6 +223,11 @@ class Objects {
      * Update existing object
      */
     public function update( $ID, array $fields ) {
+
+        // Typecast ID
+        if ( !is_int($ID) && is_numeric($ID) ) {
+            $ID = (int) $ID;
+        }
 
         // Check object exists
         if ( !$this->exists($ID) ) {
@@ -266,8 +291,8 @@ class Objects {
      * Actually deletes the object from
      * the database.
      *
-     * Use with caution, this cannot be
-     * undone!
+     * @NOTE: Use with caution, this cannot
+     * be undone!
      */
     public function remove( $ID ) {
 
@@ -301,7 +326,7 @@ class Objects {
         }
 
         // Check for ID or alias
-        if ( is_int($ID) ) {
+        if ( is_int($ID) || is_numeric($ID) ) {
             $modifier = 'ID';
         } else {
             $modifier = 'alias';

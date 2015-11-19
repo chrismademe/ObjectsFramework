@@ -76,10 +76,48 @@ class Object {
     }
 
     /**
+     * Has Children
+     *
+     * Check to see if there are any
+     * objects with the parent ID of
+     * this object
+     */
+    public function hasChildren() {
+
+        /**
+         * Run Query
+         */
+        $query = Helpers::db()->has(
+            Helpers::table('objects'),
+            array( 'parent' => $this->ID )
+        );
+
+        return $query;
+
+    }
+
+    /**
+     * Is Child
+     *
+     * Check to see whether
+     * this object has a parent
+     */
+    public function isChild() {
+        return $this->parent > 0;
+    }
+
+    /**
      * Is Published
      */
     public function isPublished() {
         return $this->status === 1;
+    }
+
+    /**
+     * Is Deleted
+     */
+    public function isDeleted() {
+        return $this->status === -1;
     }
 
     /**

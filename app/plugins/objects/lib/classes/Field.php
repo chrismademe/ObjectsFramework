@@ -89,6 +89,16 @@ class Field {
     }
 
     /**
+     * Is Child
+     *
+     * Check to see whether
+     * this field has a parent
+     */
+    public function isChild() {
+        return $this->parent > 0;
+    }
+
+    /**
      * Is Hidden
      */
     public function isHidden() {
@@ -100,6 +110,13 @@ class Field {
      */
     public function isPublished() {
         return $this->status === 1;
+    }
+
+    /**
+     * Is Deleted
+     */
+    public function isDeleted() {
+        return $this->status === -1;
     }
 
     /**
